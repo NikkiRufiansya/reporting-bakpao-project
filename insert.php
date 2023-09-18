@@ -1,4 +1,5 @@
 <?php
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sambungkan ke database
     require_once("koneksi.php");
@@ -10,27 +11,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $level = $_POST["level"];
     $pertemuan = $_POST["pertemuan"];
     $study_priode = $_POST["study_priode"];
+    $subject_matter = $_POST["subject_matter"];
+    $general_comment = $_POST["general_comment"];
 
     // Untuk mengunggah foto
     $foto = $_FILES["foto"]["name"];
     $tmp_foto = $_FILES["foto"]["tmp_name"];
-    $target_dir = "uploads/"; // Folder tempat menyimpan foto
-    $target_file = $target_dir . basename($foto);
+    $target_dir = "foto/"; // Folder tempat menyimpan foto
 
-    // Pindahkan foto yang diunggah ke folder uploads
-    if (move_uploaded_file($tmp_foto, $target_file)) {
+    // Menghasilkan nama file unik
+    $unique_filename = uniqid() . '_' . $foto;
+    $target_file = $target_dir . $unique_filename;
+
+    // Error handling
+    if ($_FILES["foto"]["error"] !== UPLOAD_ERR_OK) {
+        echo "Error during file upload. Error code: " . $_FILES["foto"]["error"];
+    } elseif (!is_uploaded_file($tmp_foto)) {
+        echo "File tidak diunggah dengan benar.";
+    } elseif (move_uploaded_file($tmp_foto, $target_file)) {
+        // File berhasil dipindahkan
         // Query untuk menyimpan data ke database
-        $sql = "INSERT INTO reporting (term, santri_name, teacher_name, level, pertemuan, study_priode, foto) VALUES ('$term', '$santri_name', '$teacher_name', '$level', '$pertemuan', '$study_priode', '$foto')";
+        $sql = "INSERT INTO reporting (term, santri_name, teacher_name, level, pertemuan, study_priode, foto, subject_matter, general_comment) VALUES ('$term', '$santri_name', '$teacher_name', '$level', '$pertemuan', '$study_priode', '$unique_filename', '$subject_matter', '$general_comment')";
 
         if (mysqli_query($conn, $sql)) {
             mysqli_close($conn);
-            header("Location: index.php");
+            header("Location: index-1.php");
             exit();
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     } else {
-        echo "Gagal mengunggah file.";
+        echo "Gagal memindahkan file.";
     }
 }
 ?>

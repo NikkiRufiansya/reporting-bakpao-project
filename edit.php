@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <!-- Tambahkan link Bootstrap CDN di sini -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <h2 class="my-4">Edit Data Reporting</h2>
@@ -32,11 +34,13 @@
                 </div>
                 <div class="form-group">
                     <label for="santri_name">Santri Name:</label>
-                    <input type="text" class="form-control" id="santri_name" name="santri_name" value="<?php echo $row['santri_name']; ?>">
+                    <input type="text" class="form-control" id="santri_name" name="santri_name"
+                        value="<?php echo $row['santri_name']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="teacher_name">Teacher Name:</label>
-                    <input type="text" class="form-control" id="teacher_name" name="teacher_name" value="<?php echo $row['teacher_name']; ?>">
+                    <input type="text" class="form-control" id="teacher_name" name="teacher_name"
+                        value="<?php echo $row['teacher_name']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="level">Level:</label>
@@ -44,15 +48,29 @@
                 </div>
                 <div class="form-group">
                     <label for="pertemuan">Meet:</label>
-                    <input type="text" class="form-control" id="pertemuan" name="pertemuan" value="<?php echo $row['pertemuan']; ?>">
+                    <input type="text" class="form-control" id="pertemuan" name="pertemuan"
+                        value="<?php echo $row['pertemuan']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="study_priode">Study Priode:</label>
-                    <input type="date" class="form-control" id="study_priode" name="study_priode" value="<?php echo $row['study_priode']; ?>">
+                    <input type="date" class="form-control" id="study_priode" name="study_priode"
+                        value="<?php echo $row['study_priode']; ?>">
                 </div>
                 <div class="form-group">
                     <label for="foto">Unggah Foto:</label>
                     <input type="file" class="form-control-file" id="foto" name="foto">
+                </div>
+
+                <div class="form-group">
+                    <label for="subject_matter">Subject Matter</label>
+                    <textarea name="subject_matter" class="texteditor"
+                        value="<?php echo $row['subject_matter'] ?>"><?php echo $row['subject_matter'] ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="general_comment">General Comment</label>
+                    <textarea name="general_comment" class="texteditor"
+                        value="<?php echo $row['general_comment'] ?>"><?php echo $row['general_comment'] ?></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 <a href="index.php" class="btn btn-secondary">Kembali</a>
@@ -66,5 +84,15 @@
         mysqli_close($conn);
         ?>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="ckeditor/adapters/jquery.js"></script>
+
+    <script type="text/javascript">
+        $('textarea.texteditor').ckeditor();
+    </script>
 </body>
+
 </html>
