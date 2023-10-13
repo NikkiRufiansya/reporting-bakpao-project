@@ -25,6 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $unique_filename = uniqid() . '_' . $foto;
     $target_file = $target_dir . $unique_filename;
 
+    
+
     // Error handling
     if ($_FILES["foto"]["error"] !== UPLOAD_ERR_OK) {
         echo "Error during file upload. Error code: " . $_FILES["foto"]["error"];
