@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Login berhasil
             session_start();
             $_SESSION["user_id"] = $user["id"];
-            header("location: index-1.php");
+            header("location: dashboard.php");
             exit();
         } else {
             $login_error = "Kata Sandi Salah";
